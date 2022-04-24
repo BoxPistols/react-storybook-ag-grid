@@ -1,3 +1,7 @@
+// You can import this type from the ag-grid library, and use it to extract the type for columnDefs
+import { AgGridReactProps } from 'ag-grid-react'
+
+// This is the shape of the data your table is expecting
 export type row = {
   make: string
   model: string
@@ -5,17 +9,11 @@ export type row = {
   type?: string
 }
 
-export type column = {
-  field: string
-}
-
+// This type will be used by storybook to define which controls are available
 export interface TableType {
   isDark?: boolean
-  filter?: boolean
-  sortable?: boolean
   pagination?: boolean
   perPage?: number
-  resizable?: boolean
   rowData?: Array<row>
-  columnDefs?: Array<column>
+  columnDefs?: AgGridReactProps['columnDefs']
 }

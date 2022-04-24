@@ -14,6 +14,7 @@ export const Simple = Template.bind({});
 
 Simple.args = {
     rowData: Table.Primary.args?.rowData,
+    columnDefs: Table.Primary.args?.columnDefs,
     title: "Home page",
     footer: "Created using Table Story",
 };
