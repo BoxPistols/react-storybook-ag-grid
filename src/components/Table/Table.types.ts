@@ -16,4 +16,7 @@ export interface TableType {
   perPage?: number
   rowData?: Array<row>
   columnDefs?: AgGridReactProps['columnDefs']
+  filter?: boolean
+  sortable?: boolean
+  resizable?: boolean
 }

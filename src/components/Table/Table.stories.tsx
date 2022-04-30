@@ -11,9 +11,12 @@ import Van from "../../assets/van.png";
 const defaultArgs: TableType = {
     isDark: false,
     pagination: true,
-    perPage: 10,
+    perPage: 15,
     rowData: [],
-    columnDefs: []
+    columnDefs: [],
+    filter: false,
+    resizable: false,
+    sortable: false,
 };
 
 
@@ -40,21 +43,23 @@ Primary.args = {
         { field: "model" },
         { field: "price" },
         { field: "type" }
-    ]
-
+    ],
+    sortable: true,
+    resizable: true,
+    filter: true,
 };
 
 const carPrice = (value: number) => {
     return { color: value > 50000 ? "#FF5733" : "#00E676" };
 };
 
-  
+
 
 const carType = (value: string) => {
-    return <img 
-        alt="" 
-        src={value === "sedan" ? Car : value === "jeep" ? Jeep : Van} 
-        style={{ width: "24px", height: "24px" }} 
+    return <img
+        alt=""
+        src={value === "sedan" ? Car : value === "jeep" ? Jeep : Van}
+        style={{ width: "24px", height: "24px" }}
     />;
 };
 
@@ -70,15 +75,17 @@ CustomCellRender.args = {
     columnDefs: [
         { field: "make" },
         { field: "model" },
-        { field: "price",
-          cellStyle: (params: any) => {
-            return carPrice(params.value);
-          },
+        {
+            field: "price",
+            cellStyle: (params: any) => {
+                return carPrice(params.value);
+            },
         },
-        { field: "type",
-          cellRenderer: (params: any) => {
-            return carType(params.value);
-          },
+        {
+            field: "type",
+            cellRenderer: (params: any) => {
+                return carType(params.value);
+            },
         }]
 
 };
@@ -87,3 +94,30 @@ export const NoData = Template.bind({});
 NoData.args = {
     ...defaultArgs
 };
+
+// This function will generate lots of data, so that you can see how the table behaves when populated with many rows
+function getData() {
+    let data = [];
+    for (let x = 0; x < 150; x++) {
+        data.push(
+            {
+                make: ["Toyota", "Nissan", "Kia"][Math.floor(Math.random() * 3)],
+                model: ["Celica", "KDH", "Sorento"][Math.floor(Math.random() * 3)],
+                price: Math.floor(Math.random() * 100000) + 25000,
+                type: ["sedan", "van", "jeep"][Math.floor(Math.random() * 3)]
+            });
+    }
+    return data;
+};
+
+export const LotsOfData = Template.bind({});
+LotsOfData.args = {
+    ...defaultArgs,
+    columnDefs: [
+        { field: "make", },
+        { field: "model" },
+        { field: "price" },
+        { field: "type" }
+    ],
+    rowData: getData()
+}
